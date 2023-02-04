@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bancoapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bancoapp
+  template:
+    metadata:
+      labels:
+        app: bancoapp
+    spec:
+      containers:
+        - name: app
+          image: rsousaj/bancoapp:1.0.0
+          ports:
+            - containerPort: 8080
+          env:
+            - name: dbhost
+              value: mysql:3306
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bancoservice
+spec:
+  selector:
+    app: bancoapp
+  ports:
+    - port: 8080
+      targetPort: 8080
+  type: LoadBalancer

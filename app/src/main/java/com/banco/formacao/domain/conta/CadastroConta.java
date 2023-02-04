@@ -14,7 +14,7 @@ public record CadastroConta(
     @NotBlank
     String conta,
 
-    @DecimalMin()
+    @DecimalMin
     DecimalFormat saldo,
     Boolean ativa
 ){}
