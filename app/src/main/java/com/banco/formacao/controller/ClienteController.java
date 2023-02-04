@@ -7,6 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/cliente")
 public class ClienteController {
@@ -34,6 +37,4 @@ public class ClienteController {
 
         return ResponseEntity.ok(new DadosDetalhamentoCliente(cliente));
     }
-
-
 }
