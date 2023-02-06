@@ -15,44 +15,46 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of = "id")
 public class Cliente {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
-        private String nome;
-        private String email;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        private String telefone;
+    private Boolean ativo;
 
-        @Embedded
-        private Endereco endereco;
+    private String nome;
+    private String email;
 
-        private Boolean ativo;
+    private String telefone;
 
-        public Cliente(CadastroCliente cadastro) {
-            this.ativo = true;
-            this.nome = cadastro.nome();
-            this.email = cadastro.email();
-            this.telefone = cadastro.telefone();
-            this.endereco = new Endereco(cadastro.endereco());
-            this.ativo = cadastro.ativo();
-        }
+    @Embedded
+    private Endereco endereco;
 
-        public void atualizarInformacoes(DadosAtualizacaoCliente cadastro) {
-            if (cadastro.nome() != null) {
-                this.nome = cadastro.nome();
-            }
-            if (cadastro.telefone() != null) {
-                this.telefone = cadastro.telefone();
-            }
-            if (cadastro.endereco() != null) {
-                this.endereco.atualizarInformacoes(cadastro.endereco());
-            }
 
-        }
-
-        public void desativar() {
-            this.ativo = false;
-        }
+    public Cliente(CadastroCliente cadastro) {
+        this.ativo = true;
+        this.nome = cadastro.nome();
+        this.email = cadastro.email();
+        this.telefone = cadastro.telefone();
+        this.endereco = new Endereco(cadastro.endereco());
+        this.ativo = cadastro.ativo();
     }
+
+    public void atualizarInformacoes(DadosAtualizacaoCliente dados) {
+        if (dados.nome() != null) {
+            this.nome = dados.nome();
+        }
+        if (dados.telefone() != null) {
+            this.telefone = dados.telefone();
+        }
+        if (dados.endereco() != null) {
+            this.endereco = dados.endereco();
+        }
+
+    }
+
+    public void inativar() {
+        this.ativo = false;
+    }
+}
 
 
